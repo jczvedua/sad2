@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Items List</title>
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 60%;
+            }
+            th, td {
+                border: 1px solid #aaa;
+                padding: 8px;
+                text-align: left;
+            }
+            #empty {
+                text-align: center;
+                color: red;
+            }
+            .no-border {
+                border: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Items List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Date Purchased</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.date_purchased }}</td>
+                    <td class="no-border">
+                        <form method="post" action="{% url 'edit_item' item.id %}" style="display:inline">
+                            {% csrf_token %}
+                            <button type="submit">Edit</button>
+                        </form>
+                    <td class="no-border">
+                        <form method="post" action="{% url 'delete_item' item.id %}" style="display:inline">
+                            {% csrf_token %}
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" id="empty">NO ITEMS FOUND</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'create_item' %}">Create</a>
+    </body>
+</html>

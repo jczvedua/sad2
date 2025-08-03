@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Edit Item</title>
+    </head>
+    <body>
+        <h2>Edit Item</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <button type="submit">Edit</button>
+            <a href="{% url 'items' %}">Cancel</a>
+        </form>
+    </body>
+</html>
